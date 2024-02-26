@@ -22,7 +22,7 @@ env:
   GKE_CLUSTER: private-test-cluster   # TODO: update to cluster name
   GKE_ZONE: us-central1-a   # TODO: update to cluster zone
   DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
-  REPOSITORY: samples # TODO: update to Artifact Registry docker repository
+  REPOSITORY: next-repo # TODO: update to Artifact Registry docker repository
   IMAGE: next-site
 
 jobs:
@@ -73,24 +73,34 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GAR_LOCATION }}
         use_connect_gateway: true
+        
     - id: get-tag
       name: generate release tag
       run: |
         RELEASE_TAG=$(date --utc +%Y-%m-%dT%H%M)
         echo "tag=$RELEASE_TAG" >> $GITHUB_OUTPUT
+
+    - id: docker_build
+      name: build and push
+      uses: docker/build-push-action@v4
+      with:
+        push: true
+        tags: |
+          $GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ steps.get-tag.outputs.tag }}
         
-    # Build the Docker image
-    - name: Build
-      run: |-
-        docker build \
-          --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ steps.get-tag.outputs.tag }}" \
-          # --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          # --build-arg GITHUB_REF="$GITHUB_REF" \
-          .
-    # Push the Docker image to Google Artifact Registry
-    - name: Publish
-      run: |-
-        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ steps.get-tag.outputs.tag }}"
+        
+    # # Build the Docker image
+    # - name: Build
+    #   run: |-
+    #     docker build \
+    #       --tag "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ steps.get-tag.outputs.tag }}" \
+    #       # --build-arg GITHUB_SHA="$GITHUB_SHA" \
+    #       # --build-arg GITHUB_REF="$GITHUB_REF" \
+    #       .
+    # # Push the Docker image to Google Artifact Registry
+    # - name: Publish
+    #   run: |-
+    #     docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:${{ steps.get-tag.outputs.tag }}"
         
     # Set up kustomize
     - name: Set up Kustomize
