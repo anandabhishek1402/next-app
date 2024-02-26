@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: next
+  creationTimestamp: null
   labels:
     app: next
 spec:
@@ -12,13 +13,14 @@ spec:
   strategy: {}
   template:
     metadata:
+      creationTimestamp: null
       labels:
         app: next
     spec:
       containers:
-      - name: next
-        image: IMAGE_REPLACE
-        imagePullPolicy: "Always"
+      - image: IMAGE_REPLACE_OVERLAY
+        name: next
+        imagePullPolicy: Always
         resources: {}
         ports:
         - containerPort: 3000
