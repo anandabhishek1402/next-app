@@ -9,6 +9,7 @@ spec:
   selector:
     matchLabels:
       app: next
+  strategy: {}
   template:
     metadata:
       labels:
@@ -17,5 +18,9 @@ spec:
       containers:
       - name: next
         image: IMAGE_REPLACE
+        imagePullPolicy: "Always"
+        resources: {}
         ports:
         - containerPort: 3000
+
+status: {}
