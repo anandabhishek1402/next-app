@@ -4,7 +4,7 @@ metadata:
   name: next
   annotations:
     kubernetes.io/ingress.global-static-ip-name: static-ip
-    kubernetes.io/ingress.class: gce
+    spec.ingressClassName: gce
 spec:
   defaultBackend:
     service:
