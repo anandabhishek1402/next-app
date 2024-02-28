@@ -74,6 +74,11 @@ jobs:
     #     location: ${{ env.GAR_LOCATION }}
     #     use_connect_gateway: true
 
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v2'
+      with:
+        version: '>= 363.0.0'
+        
     - name: connect to GKE
       run: |-
         gcloud container fleet memberships get-credentials private-test-cluster --location us-central1
