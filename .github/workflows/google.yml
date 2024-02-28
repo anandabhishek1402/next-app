@@ -67,12 +67,16 @@ jobs:
     #     password: ${{ steps.auth.ou }}
     
     # Get the GKE credentials so we can deploy to the cluster
-    - name: Set up GKE credentials
-      uses: google-github-actions/get-gke-credentials@v1
-      with:
-        cluster_name: ${{ env.GKE_CLUSTER }}
-        location: ${{ env.GAR_LOCATION }}
-        use_connect_gateway: true
+    # - name: Set up GKE credentials
+    #   uses: google-github-actions/get-gke-credentials@v1
+    #   with:
+    #     cluster_name: ${{ env.GKE_CLUSTER }}
+    #     location: ${{ env.GAR_LOCATION }}
+    #     use_connect_gateway: true
+
+    - name: connect to GKE
+      run: |-
+        gcloud container fleet memberships get-credentials private-test-cluster --location us-central1
         
     - id: get-tag
       name: generate release tag
@@ -108,10 +112,10 @@ jobs:
         curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
 
-    - name: get-pods
-      run: |-
-        kubectl get pods
-        kubectl get deploy
+    # - name: get-pods
+    #   run: |-
+    #     kubectl get pods
+    #     kubectl get deploy
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
