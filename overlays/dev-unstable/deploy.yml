@@ -1,15 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: next
   labels:
     app: next
+  name: next
 spec:
   replicas: 2
   template:
     spec:
       containers:
-      - name: next
-        image: IMAGE_REPLACE_OVERLAY
-        ports:
-        - containerPort: 3000
+      - image: IMAGE_REPLACE_OVERLAY
+        name: next
+        
