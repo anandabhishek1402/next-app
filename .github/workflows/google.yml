@@ -14,7 +14,7 @@ name: Build and Deploy to GKE
 
 on:
   push:
-    branches: [ "main-pause" ]
+    branches: [ "main" ]
 
 env:
   PROJECT_ID: "verily-abhi"
