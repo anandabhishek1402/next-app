@@ -1,0 +1,10 @@
+apiVersion: skaffold/v2beta16
+kind: Config
+metadata:
+  name: next-app
+profiles:
+  - name: dev-unstable
+    manifests:
+      kustomize:
+        paths:
+          - ./overlays/dev-unstable
