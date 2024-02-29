@@ -69,17 +69,17 @@ jobs:
     #     password: ${{ steps.auth.ou }}
     
     # Get the GKE credentials so we can deploy to the cluster
-    - name: Set up GKE credentials
-      uses: google-github-actions/get-gke-credentials@v1
-      with:
-        cluster_name: ${{ env.GKE_CLUSTER }}
-        location: ${{ env.GAR_LOCATION }}
-        use_connect_gateway: true
+    # - name: Set up GKE credentials
+    #   uses: google-github-actions/get-gke-credentials@v1
+    #   with:
+    #     cluster_name: ${{ env.GKE_CLUSTER }}
+    #     location: ${{ env.GAR_LOCATION }}
+    #     use_connect_gateway: true
 
-    - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v2'
-      with:
-        version: '>= 363.0.0'
+    # - name: 'Set up Cloud SDK'
+    #   uses: 'google-github-actions/setup-gcloud@v2'
+    #   with:
+    #     version: '>= 363.0.0'
         
     # - name: connect to GKE
     #   run: |-
