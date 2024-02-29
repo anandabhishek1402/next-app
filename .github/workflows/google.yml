@@ -87,6 +87,7 @@ jobs:
     - name: Replace 'dev' with 'prod' in Dockerfile
       run: |
         sed -i 's/dev/prod/g' Dockerfile
+        cat Dockerfile
       
     - id: docker_build
       name: build and push
@@ -94,7 +95,6 @@ jobs:
       with:
         push: true
         tags: |
-          cat Dockerfile
           ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ steps.get-tag.outputs.tag }}
         
         
@@ -128,4 +128,13 @@ jobs:
         # replacing the image name in the k8s template
         ../../kustomize edit set image IMAGE_REPLACE_OVERLAY=${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ steps.get-tag.outputs.tag }}
         ../../kustomize build . | kubectl apply -f - --validate=false
+
+
+    # Get the GKE credentials so we can deploy to the cluster
+    # - name: Set up GKE credentials
+    #   uses: google-github-actions/get-gke-credentials@v1
+    #   with:
+    #     cluster_name: ${{ env.GKE_CLUSTER }}
+    #     location: ${{ env.GAR_LOCATION }}
+    #     use_connect_gateway: true
 
