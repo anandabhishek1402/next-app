@@ -66,10 +66,12 @@ jobs:
         curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
         chmod u+x ./kustomize
 
-    - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v2'
-      with:
-        version: '>= 363.0.0'
+    - name: Install Google Cloud SDK
+      run: |-
+        echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+        sudo apt-get install -y apt-transport-https ca-certificates gnupg
+        sudo apt-get update && sudo apt-get install -y google-cloud-sdk
+
         
     # Deploy the Docker image to the GKE cluster
     - name: Connect to GKE Cluster
