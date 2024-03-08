@@ -9,3 +9,5 @@ profiles:
         paths:
           - ./overlays/dev-unstable
           - ./base
+deploy:
+  kubectl: {}
