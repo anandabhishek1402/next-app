@@ -62,12 +62,12 @@ jobs:
     - id: create-release
       uses: 'google-github-actions/create-cloud-deploy-release@v1'
       with:
-        name: 'demo-pipeline'
+        name: 'demo-pipeline-githubaction-release1'
         description: 'Add new functionality to demo-app'
         delivery_pipeline: 'demo-pipeline'
         region: 'us-central1'
         images: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ steps.get-tag.outputs.tag }}
-        source: 'next-app'
+
               
     # # Set up kustomize
     # - name: Set up Kustomize
