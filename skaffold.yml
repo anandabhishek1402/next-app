@@ -8,3 +8,4 @@ profiles:
       kustomize:
         paths:
           - ./overlays/dev-unstable
+          - ./base
