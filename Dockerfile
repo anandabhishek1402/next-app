@@ -5,4 +5,4 @@ RUN npm install
 ARG ENV
 ENV ENV=$ENV
 RUN echo $ENV
-CMD ["npm", "run", "$ENV"]
+CMD npm run $ENV
