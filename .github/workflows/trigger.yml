@@ -79,11 +79,11 @@ jobs:
     #   run: |-
     #     gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project verily-abhi 
     
-    # - name: Set up GKE credentials
-    #   uses: google-github-actions/get-gke-credentials@v0
-    #   with:
-    #     cluster_name: ${{ env.GKE_CLUSTER }}
-    #     location: ${{ env.GKE_ZONE }}
+    - name: Set up GKE credentials
+      uses: google-github-actions/get-gke-credentials@v0
+      with:
+        cluster_name: ${{ env.GKE_CLUSTER }}
+        location: ${{ env.GKE_ZONE }}
         
     - name: Deploy
       run: |-
