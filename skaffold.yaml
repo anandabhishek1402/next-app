@@ -1,16 +1,41 @@
-apiVersion: skaffold/v2beta16
+# apiVersion: skaffold/v2beta16
+# kind: Config
+# metadata:
+#   name: next-app
+# profiles:
+#   - name: dev-unstable
+#     manifests:
+#       kustomize:
+#         paths:
+#           - ./overlays/dev-unstable
+#           - ./base
+# deploy:
+#   kubectl: {}
+
+apiVersion: skaffold/v3alpha1
 kind: Config
 metadata:
-  name: next-app
+  name: hello-skaffold-gke
 profiles:
-  - name: dev-unstable
-    build:
-      artifacts:
-        - image: my-image
-    deploy:
-      kubectl:
-        manifests:
-          kustomize:
-            paths:
-              - ./overlays/dev-unstable/
-              - ./base/
+  - name: cluster-1
+    manifests:
+      kustomize:
+        paths:
+          - ./overlays/dev-unstable
+  - name: cluster-2
+    manifests:
+      kustomize:
+        paths:
+          - ./overlays/dev-unstable
+          # - ./base
+
+# build:
+#   artifacts:
+#   - image: hello-skaffold-gke
+#     jib: { }
+# #    buildpacks:
+# #      builder: gcr.io/buildpacks/builder:v1
+# #      env:
+# #        - "GOOGLE_RUNTIME_VERSION=17"
+deploy:
+  kubectl: { }
