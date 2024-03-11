@@ -54,10 +54,10 @@ jobs:
         RELEASE_TAG=$(date --utc +%Y-%m-%dT%H%M)
         echo "tag=$RELEASE_TAG" >> $GITHUB_OUTPUT
   
-    - name: Build Docker Image
-      run: |-
-        docker build --build-arg ENV=${{ env.ENV }} -t ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ steps.get-tag.outputs.tag }} .
-        docker push ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ steps.get-tag.outputs.tag }}
+    # - name: Build Docker Image
+    #   run: |-
+    #     docker build --build-arg ENV=${{ env.ENV }} -t ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ steps.get-tag.outputs.tag }} .
+    #     docker push ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ steps.get-tag.outputs.tag }}
 
    
               
