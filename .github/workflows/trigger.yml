@@ -94,11 +94,12 @@ jobs:
     - id: create-release
       uses: 'google-github-actions/create-cloud-deploy-release@v1'
       with:
-        name: release-github-action-2
+        name: release-github-action-3
         description: 'Add new functionality to demo-app'
         delivery_pipeline: 'demo-pipeline'
         region: 'us-central1'
-        images: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ steps.get-tag.outputs.tag }}
+        images: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}
+        tag: ${{ steps.get-tag.outputs.tag }}
 
 
 
