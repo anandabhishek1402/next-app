@@ -1,25 +1,12 @@
-# apiVersion: skaffold/v2beta16
-# kind: Config
-# metadata:
-#   name: next-app
-# profiles:
-#   - name: dev-unstable
-#     manifests:
-#       kustomize:
-#         paths:
-#           - ./overlays/dev-unstable
-#           - ./base
-# deploy:
-#   kubectl: {}
 apiVersion: skaffold/v2beta16
 kind: Config
 metadata:
   name: next-app
 profiles:
   - name: dev-unstable
-    # build:
-    #   artifacts:
-    #     - image: gcr.io/your-project-id/next-app:${SKAFFOLD_PROFILE}
+    build:
+      artifacts:
+        - image: my-image
     deploy:
       kubectl:
         manifests:
