@@ -69,7 +69,7 @@ jobs:
 
     - name: Create cloud deploy release
       run: |-
-        gcloud deploy releases create test-release-005 \
+        gcloud deploy releases create test-release-006 \
         --project=verily-abhi  \
         --region=us-central1 \
         --delivery-pipeline=demo-pipeline \
